@@ -2,12 +2,12 @@ import { useState } from 'react'
 
 import './App.css'
 
-import NavBar from './components/NavBar'
+
 import HomePage from './pages/HomePage'
 import ArticlePage from './pages/ArticlePage'
-
+import SectionPage from './pages/SectionPage'
 import NewsData from './data/news.json'
-// import NavItemsData from '../data/navItems.json'
+import AppNav from './components/AppNav'
 
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -22,7 +22,8 @@ function App() {
       abstract: article.abstract,
       byline: article.byline,
       image: article.multimedia.length ? article.multimedia[0] : null,
-      created_date: article.created_date
+      created_date: article.created_date,
+      section: article.section
     }})
     )
 
@@ -33,12 +34,13 @@ function App() {
   return (
     <div className="App">
       {/* <NavBar items={navItems} /> */}
-      
+      <AppNav />
       <Router> 
         <Routes>
 
           <Route path='/' element={<HomePage articles = {articles}/>} />
           <Route path='/articles/:articleID' element={<ArticlePage  getArticleById={getArticleById} />} />
+          <Route path='/sections/:sectionName' element={<SectionPage articles={articles}/>}/>
 
         </Routes>
       </Router>   
